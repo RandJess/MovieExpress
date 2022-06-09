@@ -1,0 +1,18 @@
+body {
+    font-family:Consolas,Monaco,"Andale Mono",monospace;
+    background-color: aqua;
+}
+
+.central {
+    /* min-height: 250px; */
+    color: rgb(184, 184, 184);
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color:rgb(255, 140, 0);
+}
+li {
+    display: block;
+}
