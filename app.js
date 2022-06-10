@@ -5,6 +5,9 @@ const bodyParser = require('body-parser')
 const multer = require('multer')
 const upload = multer()
 
+//MIDDLEWARE BODY-PARSER
+    const urlencodedParser = bodyParser.urlencoded({extension: 'true'})
+    // app.use(bodyParser.urlencoded({extension:false}))
 // ---------------------------
 // -----------------------------
 
@@ -15,9 +18,6 @@ let listeMovies = []
 app.use('/public', express.static("public"))
 //jS
 app.use("/views/script", express.static('views/script'));
-//MIDDLEWARE BODY-PARSER
-    const urlencodedParser = bodyParser.urlencoded({extension: 'false'})
-    // app.use(bodyParser.urlencoded({extension:false}))
 
 //EJS
     //le 1er view c basic, le 2e io chemin misy zay fichier ejs
@@ -36,6 +36,43 @@ app.get("/", (req, res) => {
 app.get('/movie-search',  (req, res)=>{
     res.render("movie-search")
 })
+
+//LOGIN  PAGE
+app.get('/login', (req, res)=>{
+    res.render('login', {title: "connexion"})
+})
+
+//Login POST
+const fakeUser = {email : 'testEmail@gmail.com', pwd: '123' }
+app.post('/login', urlencodedParser, (req, res)=>{
+    console.log('post page login  reussi');
+    if (!req.body) {
+        res.sendStatus(500)
+        console.log('Aucun info entree par l\'user');
+    } else {
+        console.log(req.body.email, req.body.pwd);
+        if (req.body.email===fakeUser.email && req.body.pwd===fakeUser.pwd) {
+            //👇
+            //Une promesse qui se résout en un objet JavaScript.
+            // le résultat n'est pas JSON mais plutôt 
+            //le résultat de la prise de JSON en entrée et de son analyse pour produire un objet JavaScript.
+            res.json({
+                email: 'testEmail@gmail.com',
+                favorisMovie: 'Harry poter',
+                lastLogin: new Date()
+            //👆
+            })
+            console.log('Info exactes');
+        } else {
+            res.sendStatus(401)
+            console.log('Pas info exacte');
+        }
+    }
+})
+
+
+
+
 
 app.get("/movies", (req,res) => {
     const theTitle = "This is a title"

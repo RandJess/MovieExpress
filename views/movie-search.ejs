@@ -24,7 +24,7 @@
     <script>
         const monApi_Key = "f7cb70a3c17fe4634c4eecd76806d9d3"
         const searchBtn = document.getElementById('searchBtn')
-        const result = document.getElementById('result')
+        const affichageResult = document.getElementById('result')
         const searchZone = document.getElementById('searchZone')
 
         searchBtn.addEventListener('click', search)
@@ -35,16 +35,17 @@
             axios.get(query) 
             .then(function(res){
                 console.log(res);
-                afficherLeResultat(response.data.results)
+                afficherLeResultat(res.data.results)
             })
         }
 
         function afficherLeResultat (results) {
-            searchZone.reset()
+            // searchZone.reset()
+            console.log('affichagedureuslok');
             for (let result of results) {
                 let newDiv = document.createElement('div')
-                result.appendChild('newDiv')
-                newDiv.textContent="result.title"
+                newDiv.textContent=result.title
+                affichageResult.appendChild(newDiv)
             }
         }
     </script>
